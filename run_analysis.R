@@ -56,14 +56,18 @@ rm(subject_train)
       
       x_combined_id <- rbind(x_id_train, x_id_test)
       activity_name <- labels[x_combined$activity,2]
-      #rm(x_id_train)
-      #rm(x_id_test)
+   
       x_combined_a_name <- cbind(activity_name, x_combined_id)
 
+#remove unuded variables
+      rm(x_id_train)
+      rm(x_id_test)
+      rm(x_combined_id)
 # selecting the features ending in mean(), std(), mean()-x, mean()-y ...etc...
       needed <- grep("(mean|std)\\(\\).?[XYZ]?$", names(x_combined_a_name)) 
-      needed
+
       x_reduced <-x_combined_a_name[,c(1,3,needed)]
+    rm(x_combined_a_name)
 #generating new names for the aggregates    
       names(x_reduced)  <- paste ("MEAN of", names(x_reduced))
 # applying  user friendly labels for the first columns
@@ -74,4 +78,4 @@ rm(subject_train)
       write.table(sum_name,"means.txt" ,sep=",")
 
 
-###end of run_analysis.R
+####end of run_analysis.R
